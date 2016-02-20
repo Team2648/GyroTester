@@ -64,9 +64,10 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("kP", .01);
     	SmartDashboard.putNumber("kI", .01);
     	SmartDashboard.putNumber("kD", 0);
+    	SmartDashboard.putNumber("kTol", .25);
     	
     	controller = new PIDController(SmartDashboard.getNumber("kP"), SmartDashboard.getNumber("kI"), SmartDashboard.getNumber("kD"), gyro, output);
-    	controller.setAbsoluteTolerance(.25);
+    	controller.setAbsoluteTolerance(SmartDashboard.getNumber("kTol"));
     	controller.disable();
     }
     
@@ -95,6 +96,7 @@ public class Robot extends IterativeRobot {
     		dt.arcadeDrive(-j1.getY(), -j1.getX());
     		
     		controller.setPID(SmartDashboard.getNumber("kP"), SmartDashboard.getNumber("kI"), SmartDashboard.getNumber("kD"));
+    		controller.setAbsoluteTolerance(SmartDashboard.getNumber("kTol"));
     	}
     	
     	if(controller.isEnabled())
